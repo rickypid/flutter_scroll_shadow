@@ -5,7 +5,7 @@
 
 Scroll shadow widget for Flutter. This widget add on scroll widget a shadow, work on widget with ScrollController with vertical or horizontal orientation.
 
-| ![Image](https://github.com/rickypid/flutter_scroll_shadow/blob/7f5bde4ebc40899079800127c815e01beac3abcb/doc/.media/example.gif?raw=true) |
+| ![Image](https://github.com/rickypid/flutter_scroll_shadow/blob/master/doc/.media/example.gif?raw=true) |
 | :------------: |
 | **ScrollShadow** |
 
@@ -56,7 +56,7 @@ ScrollShadow(
 ### Example
 
 | ![Image](https://github.com/rickypid/flutter_scroll_shadow/blob/master/doc/.media/example_vertical.png?raw=true) | ![Image](https://github.com/rickypid/flutter_scroll_shadow/blob/master/doc/.media/example_horizontal.png?raw=true) |
-| :------------: | :------------: | :------------: |
+| :------------: | :------------: |
 | **Vertical axis** | **Horizontal axis** |
 
 
