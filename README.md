@@ -1,37 +1,37 @@
-# flutter_scroll_shadow
+#### flutter_scroll_shadow
+# Scroll Shadow
 
 [![Pub Package](https://img.shields.io/pub/v/flutter_scroll_shadow.svg?style=flat-square)](https://pub.dartlang.org/packages/flutter_scroll_shadow) [![Package Issue](https://img.shields.io/github/issues/rickypid/flutter_scroll_shadow)](https://github.com/rickypid/flutter_scroll_shadow/issues)
 ![Package License](https://img.shields.io/github/license/rickypid/flutter_scroll_shadow)
 
-Scroll shadow widget for Flutter. This widget add on scroll widget a shadow, work on widget with ScrollController with vertical or horizontal orientation.
+`ScrollShadow` is a widget for Flutter that adds shadows to a scrollable child.
+
+Supports `ScrollController` and vertical or horizontal orientation.
 
 | ![Image](https://github.com/rickypid/flutter_scroll_shadow/blob/master/doc/.media/example.gif?raw=true) |
 | :------------: |
 | **ScrollShadow** |
 
 ## Features
+* Adds shadows over a scrollable child while not at its max extents
+* Supports vertical and horizontal `Axis`
+* Customizable animation duration
+* Determine how wide or tall shadows render
 
-* Add on scroll widget a shadow
-* Vertical and Horizontal axis 
-* Animation time customizable
-* Shadow size customizable
+&nbsp;
 
 ## Usage
-
-Make sure to check out [examples](https://github.com/rickypid/flutter_scroll_shadow/tree/master/exmple).
+Make sure to check out the [examples on GitHub](https://github.com/rickypid/flutter_scroll_shadow/tree/master/exmple).
 
 ### Installation
-
 Add the following line to `pubspec.yaml`:
-
 ```yaml
 dependencies:
-  flutter_scroll_shadow: ^0.1.0-alpha
+  flutter_scroll_shadow: ^0.1.0-alpha.1
 ```
 
 ### Basic setup
-
-*The complete example is available [here](https://github.com/rickypid/flutter_scroll_shadow/blob/master/example/lib/main.dart).*
+*Complete example [available here](https://github.com/rickypid/flutter_scroll_shadow/blob/master/example/lib/main.dart).*
 
 ```dart
 ScrollShadow(
@@ -42,24 +42,17 @@ ScrollShadow(
 );
 ```
 
-### Advanced options
+### Properties
+* `scrollDirection`: Scroll direction corresponding to child; default: `Axis.vertical`
+* `controller`: Optional for vertically scrolling content, but required if the child is `Axis.horizontal`
+* `color`: for the shadows; default: `Colors.grey`
+* `size`: The width or height of shadows, depending on `Axis`; default: `15.0`
+* `child`: Scrollable child contained by the `ScrollShadow`
+* `duration`: Milliseconds, as an `int,` for animation of shadow visibility changes; default: `300`
 
-#### Property
+&nbsp;
 
-* `scrollDirection` Axis, is a direction of scroll, Default: Axis.vertical
-* `ScrollController` (Optional) necessary if child scroll used an external controller or scrollDirection = Axis.horizontal
-* `color` is a color of shadow, Default: Colors.grey
-* `size` is a size of shadow, Default: 15
-* `child` The child contained by the ScrollShadow.
-* `animationDuration` in milliseconds, it's duration time of animation duration on shadow visible status change
-
-### Example
-
-| ![Image](https://github.com/rickypid/flutter_scroll_shadow/blob/master/doc/.media/example_vertical.png?raw=true) | ![Image](https://github.com/rickypid/flutter_scroll_shadow/blob/master/doc/.media/example_horizontal.png?raw=true) |
-| :------------: | :------------: |
-| **Vertical axis** | **Horizontal axis** |
-
-
-
-
-
+## Example
+![Image](https://github.com/rickypid/flutter_scroll_shadow/blob/master/doc/.media/example_vertical.png?raw=true) | ![Image](https://github.com/rickypid/flutter_scroll_shadow/blob/master/doc/.media/example_horizontal.png?raw=true)
+:-:| :-:
+**Vertically-scrolling child** | **Horizontally-scrolling child**
