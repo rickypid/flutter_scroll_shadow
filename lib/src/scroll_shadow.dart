@@ -18,7 +18,8 @@ class ScrollShadow extends StatefulWidget {
     this.controller,
     this.scrollDirection = Axis.vertical,
     required this.child,
-    this.duration = 300,
+    this.duration = const Duration(milliseconds: 300),
+    this.curve = Curves.easeInOutQuint,
   });
 
   /// [color] determines rendered color of shadows.
@@ -47,11 +48,15 @@ class ScrollShadow extends StatefulWidget {
   /// Match this `ScrollShadow`'s [scrollDirection] to this `child`'s `scrollDirection`.
   final Widget child;
 
-  /// [duration] is an `int` representing `milliseconds`
-  /// for the animation duration on shadow visibility changes.
+  /// The duration for the animation of shadow visibility changes.
   ///
-  /// Default: `200`
-  final int duration;
+  /// Default: `Duration(milliseconds: 300)`
+  final Duration duration;
+
+  /// The animation [Curve] to use for shadow visibility changes.
+  ///
+  /// Default: [Curves.easeIn]
+  final Curve curve;
 
   @override
   _ScrollShadowState createState() => _ScrollShadowState();
@@ -99,7 +104,8 @@ class _ScrollShadowState extends State<ScrollShadow> {
             children: [
               AnimatedOpacity(
                 opacity: _reachedStartSnap ? 0 : 1,
-                duration: Duration(milliseconds: widget.duration),
+                duration: widget.duration,
+                curve: widget.curve,
                 child: Container(
                   width: widget.size,
                   decoration: BoxDecoration(
@@ -117,7 +123,8 @@ class _ScrollShadowState extends State<ScrollShadow> {
               ),
               AnimatedOpacity(
                 opacity: _reachedEndSnap ? 0 : 1,
-                duration: Duration(milliseconds: widget.duration),
+                duration: widget.duration,
+                curve: widget.curve,
                 child: Container(
                   width: widget.size,
                   decoration: BoxDecoration(
@@ -140,7 +147,8 @@ class _ScrollShadowState extends State<ScrollShadow> {
             children: [
               AnimatedOpacity(
                 opacity: _reachedStartSnap ? 0 : 1,
-                duration: Duration(milliseconds: widget.duration),
+                duration: widget.duration,
+                curve: widget.curve,
                 child: Container(
                   height: widget.size,
                   decoration: BoxDecoration(
@@ -158,7 +166,8 @@ class _ScrollShadowState extends State<ScrollShadow> {
               ),
               AnimatedOpacity(
                 opacity: _reachedEndSnap ? 0 : 1,
-                duration: Duration(milliseconds: widget.duration),
+                duration: widget.duration,
+                curve: widget.curve,
                 child: Container(
                   height: widget.size,
                   decoration: BoxDecoration(
