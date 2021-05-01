@@ -1,79 +1,72 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_scroll_shadow/flutter_scroll_shadow.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ScrollShadow',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'ScrollShadow'),
+      title: 'ScrollShadow Example',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
+  const MyHomePage({Key? key}) : super(key: key);
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  ScrollController controllerHorizontal = new ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  ScrollController horizontalController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text(
+            '   Vertical                    |                    Horizontal'),
+        centerTitle: true,
       ),
       body: Container(
         child: Row(
           children: [
-            //Vertical scroll
+            // Vertically-scrolling child
             Expanded(
               child: ScrollShadow(
                 color: Colors.grey,
                 child: ListView(
-                    children: List.generate(
-                        20,
-                        (index) => ListTile(
-                              title: Text('Element $index'),
-                            ))),
+                  children: List.generate(
+                    20,
+                    (index) => ListTile(title: Text('Element $index')),
+                  ),
+                ),
               ),
             ),
-            //Horizontal scroll
+
+            // Horizontally-scrolling child
             Expanded(
               child: ScrollShadow(
                 scrollDirection: Axis.horizontal,
-                controller: controllerHorizontal,
+                controller: horizontalController,
                 color: Colors.grey,
                 child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    controller: controllerHorizontal,
-                    //Required with horizontal scroll direction
-                    children: List.generate(
-                        20,
-                        (index) => Container(
-                              width: 100,
-                              child: RotatedBox(
-                                  quarterTurns: 1,
-                                  child: Text('Element $index')),
-                            ))),
+                  scrollDirection: Axis.horizontal,
+                  // ScrollController is required for Axis.horizontal
+                  controller: horizontalController,
+                  children: List.generate(
+                    20,
+                    (index) => Container(
+                      width: 100,
+                      child: RotatedBox(
+                        quarterTurns: 1,
+                        child: Text('Element $index'),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
