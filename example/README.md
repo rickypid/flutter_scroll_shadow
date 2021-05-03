@@ -27,7 +27,7 @@ Make sure to check out the [examples on GitHub](https://github.com/rickypid/flut
 Add the following line to `pubspec.yaml`:
 ```yaml
 dependencies:
-  flutter_scroll_shadow: ^0.1.0-alpha.1
+  flutter_scroll_shadow: ^1.0.0
 ```
 
 ### Basic setup

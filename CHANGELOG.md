@@ -1,4 +1,8 @@
 # Flutter Scroll Shadow
+
+## [1.0.0] - 2021-05-05
+- First stable release.
+
 ## [0.1.0-alpha.2] - 2021-04-30
 #### [@Zabadam](https://github.com/zabadam)
 - Added `Curve` parameter and made `duration` a full `Duration`.
