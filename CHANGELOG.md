@@ -1,6 +1,11 @@
 # Flutter Scroll Shadow
 
+## [1.0.1] - 2021-07-20
+#### [@rickypid](https://github.com/rickypid)
+- Change README.md.
+
 ## [1.0.0] - 2021-05-05
+#### [@rickypid](https://github.com/rickypid)
 - First stable release.
 
 ## [0.1.0-alpha.2] - 2021-04-30
@@ -17,4 +22,5 @@
 - `loc`: 231 -> 185, with added comments 👍
 
 ## [0.1.0-alpha] - 2021-04-30
+#### [@rickypid](https://github.com/rickypid)
 - Initial release.

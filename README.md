@@ -21,13 +21,13 @@ Supports `ScrollController` and vertical or horizontal orientation.
 &nbsp;
 
 ## Usage
-Make sure to check out the [examples on GitHub](https://github.com/rickypid/flutter_scroll_shadow/tree/master/exmple).
+Make sure to check out the [examples on GitHub](https://github.com/rickypid/flutter_scroll_shadow/tree/master/example).
 
 ### Installation
 Add the following line to `pubspec.yaml`:
 ```yaml
 dependencies:
-  flutter_scroll_shadow: ^1.0.0
+  flutter_scroll_shadow: <last-release>
 ```
 
 ### Basic setup
