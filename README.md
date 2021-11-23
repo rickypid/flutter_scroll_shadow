@@ -1,7 +1,12 @@
 #### flutter_scroll_shadow
 # Scroll Shadow
 
-[![Pub Package](https://img.shields.io/pub/v/flutter_scroll_shadow.svg?style=flat-square)](https://pub.dartlang.org/packages/flutter_scroll_shadow) [![Package Issue](https://img.shields.io/github/issues/rickypid/flutter_scroll_shadow)](https://github.com/rickypid/flutter_scroll_shadow/issues)
+[![Pub Package](https://img.shields.io/pub/v/flutter_scroll_shadow.svg?style=flat-square)](https://pub.dartlang.org/packages/flutter_scroll_shadow)
+[![likes](https://badges.bar/flutter_scroll_shadow/likes)](https://pub.dev/packages/flutter_scroll_shadow/score)
+[![popularity](https://badges.bar/flutter_scroll_shadow/popularity)](https://pub.dev/packages/flutter_scroll_shadow/score)
+[![pub points](https://badges.bar/flutter_scroll_shadow/pub%20points)](https://pub.dev/packages/flutter_scroll_shadow/score)
+
+[![Package Issue](https://img.shields.io/github/issues/rickypid/flutter_scroll_shadow)](https://github.com/rickypid/flutter_scroll_shadow/issues)
 ![Package License](https://img.shields.io/github/license/rickypid/flutter_scroll_shadow)
 
 `ScrollShadow` is a widget for Flutter that adds shadows to a scrollable child.
