@@ -1,5 +1,9 @@
 # Flutter Scroll Shadow
 
+## [1.0.2] - 2022-01-25
+#### [@rickypid](https://github.com/rickypid)
+- Improved documentations.
+
 ## [1.0.1] - 2021-07-20
 #### [@rickypid](https://github.com/rickypid)
 - Change README.md.
