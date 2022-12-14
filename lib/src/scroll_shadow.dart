@@ -76,8 +76,12 @@ class _ScrollShadowState extends State<ScrollShadow> {
   }
 
   void _listener() {
-    _reachedEnd = (_controller.position.extentAfter == 0);
-    _reachedStart = (_controller.position.extentBefore == 0);
+    /*if (_controller.position.extentInside != 0)
+      print("m:${_controller.position.extentInside}");*/
+    _reachedStart = (_controller.position.extentBefore == 0 &&
+        _controller.position.hasViewportDimension);
+    _reachedEnd = (_controller.position.extentAfter == 0 &&
+        _controller.position.hasViewportDimension);
     _update();
   }
 
