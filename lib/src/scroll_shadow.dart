@@ -20,6 +20,7 @@ class ScrollShadow extends StatefulWidget {
     required this.child,
     this.duration = const Duration(milliseconds: 300),
     this.curve = Curves.easeInOutQuint,
+    this.ignoreInteraction = true,
   });
 
   /// [color] determines rendered color of shadows.
@@ -57,6 +58,14 @@ class ScrollShadow extends StatefulWidget {
   ///
   /// Default: [Curves.easeIn]
   final Curve curve;
+
+  /// Determines if [ScrollShadow] is wrapped inside a [IgnorePointer] widget,
+  /// so that all touch events with the shadow will be ignored.
+  /// Setting this `true` means that the shadow will be ignored from interactions,
+  /// so you can still interact with the widget below
+  ///
+  /// Default: `true`
+  final bool ignoreInteraction;
 
   @override
   _ScrollShadowState createState() => _ScrollShadowState();
@@ -98,7 +107,9 @@ class _ScrollShadowState extends State<ScrollShadow> {
     }
     _update();
 
-    final Widget shadow = (widget.scrollDirection == Axis.horizontal)
+    final Widget shadow = IgnorePointer(
+      ignoring: widget.ignoreInteraction,
+      child: (widget.scrollDirection == Axis.horizontal)
         ? Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -184,7 +195,8 @@ class _ScrollShadowState extends State<ScrollShadow> {
                 ),
               ),
             ],
-          );
+          ),
+    );
 
     return Stack(
       children: <Widget>[widget.child, shadow],
