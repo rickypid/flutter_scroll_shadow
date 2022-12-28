@@ -54,6 +54,7 @@ ScrollShadow(
 * `size`: The width or height of shadows, depending on `Axis`; default: `15.0`
 * `child`: Scrollable child contained by the `ScrollShadow`
 * `duration`: Milliseconds, as an `int,` for animation of shadow visibility changes; default: `300`
+* `ignoreInteraction`: Setting this `true` means that the shadow will be ignored from interactions, so you can still interact with the widget below; default: `true`
 
 &nbsp;
 
