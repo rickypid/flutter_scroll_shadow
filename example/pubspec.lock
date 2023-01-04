@@ -63,7 +63,7 @@ packages:
     source: hosted
     version: "2.0.1"
   flutter_scroll_shadow:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       path: ".."
       relative: true

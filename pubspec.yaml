@@ -6,6 +6,7 @@ issue_tracker: https://github.com/rickypid/flutter_scroll_shadow/issues
 homepage: https://github.com/rickypid/flutter_scroll_shadow
 documentation: https://github.com/rickypid/flutter_scroll_shadow#readme
 
+
 environment:
   sdk: ">=2.18.2 <3.0.0"
   flutter: ">=1.17.0"

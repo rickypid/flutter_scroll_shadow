@@ -3,6 +3,7 @@ library flutter_scroll_shadow;
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 /// Wraps a scrollable child in `ScrollShadow`s.
 class ScrollShadow extends StatefulWidget {
@@ -85,20 +86,29 @@ class _ScrollShadowState extends State<ScrollShadow> {
     super.dispose();
   }
 
+  bool get _shadowVisible =>
+      _controller.positions.isNotEmpty &&
+      (_controller.position.extentBefore > 0 ||
+          _controller.position.extentAfter > 0);
+
   void _listener() {
-    _reachedStart = (_controller.position.extentBefore == 0 &&
-        _controller.position.hasViewportDimension);
-    _reachedEnd = (_controller.position.extentAfter == 0 &&
-        _controller.position.hasViewportDimension);
+    _reachedStart = _controller.positions.isNotEmpty &&
+        _controller.position.extentBefore == 0;
+    _reachedEnd = _controller.positions.isNotEmpty &&
+        _controller.position.extentAfter == 0;
     _update();
   }
 
   void _update() {
     if (_reachedStart != _reachedStartSnap) {
-      setState(() => _reachedStartSnap = _reachedStart);
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        setState(() => _reachedStartSnap = _reachedStart);
+      });
     }
     if (_reachedEnd != _reachedEndSnap) {
-      setState(() => _reachedEndSnap = _reachedEnd);
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        setState(() => _reachedEndSnap = _reachedEnd);
+      });
     }
   }
 
@@ -119,7 +129,7 @@ class _ScrollShadowState extends State<ScrollShadow> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AnimatedOpacity(
-                  opacity: _reachedStartSnap ? 0 : 1,
+                  opacity: _reachedStartSnap || !_shadowVisible ? 0 : 1,
                   duration: widget.duration,
                   curve: widget.curve,
                   child: Container(
@@ -138,7 +148,7 @@ class _ScrollShadowState extends State<ScrollShadow> {
                   ),
                 ),
                 AnimatedOpacity(
-                  opacity: _reachedEndSnap ? 0 : 1,
+                  opacity: _reachedEndSnap || !_shadowVisible ? 0 : 1,
                   duration: widget.duration,
                   curve: widget.curve,
                   child: Container(
@@ -162,7 +172,7 @@ class _ScrollShadowState extends State<ScrollShadow> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AnimatedOpacity(
-                  opacity: _reachedStartSnap ? 0 : 1,
+                  opacity: _reachedStartSnap || !_shadowVisible ? 0 : 1,
                   duration: widget.duration,
                   curve: widget.curve,
                   child: Container(
@@ -181,7 +191,7 @@ class _ScrollShadowState extends State<ScrollShadow> {
                   ),
                 ),
                 AnimatedOpacity(
-                  opacity: _reachedEndSnap ? 0 : 1,
+                  opacity: _reachedEndSnap || !_shadowVisible ? 0 : 1,
                   duration: widget.duration,
                   curve: widget.curve,
                   child: Container(
@@ -203,8 +213,13 @@ class _ScrollShadowState extends State<ScrollShadow> {
             ),
     );
 
-    return Stack(
-      children: <Widget>[widget.child, shadow],
+    return LayoutBuilder(
+      builder: (context, constrains) {
+        _listener();
+        return Stack(
+          children: <Widget>[widget.child, shadow],
+        );
+      },
     );
   }
 }
