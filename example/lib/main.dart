@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -13,20 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      scrollBehavior: AppCustomScrollBehavior(),
       title: 'ScrollShadow Example',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: const MyHomePage(),
     );
   }
-}
-
-class AppCustomScrollBehavior extends MaterialScrollBehavior {
-  @override
-  Set<PointerDeviceKind> get dragDevices => {
-        PointerDeviceKind.touch,
-        PointerDeviceKind.mouse,
-      };
 }
 
 class MyHomePage extends StatefulWidget {
