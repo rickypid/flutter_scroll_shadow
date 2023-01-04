@@ -1,10 +1,15 @@
+// Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_scroll_shadow/flutter_scroll_shadow.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,7 +32,8 @@ class AppCustomScrollBehavior extends MaterialScrollBehavior {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
-  _MyHomePageState createState() => _MyHomePageState();
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -42,52 +48,50 @@ class _MyHomePageState extends State<MyHomePage> {
             '   Vertical                    |                    Horizontal'),
         centerTitle: true,
       ),
-      body: Container(
-        child: Row(
-          children: [
-            // Vertically-scrolling child
-            Expanded(
-              child: ScrollShadow(
+      body: Row(
+        children: [
+          // Vertically-scrolling child
+          Expanded(
+            child: ScrollShadow(
+              scrollDirection: Axis.vertical,
+              controller: verticalController,
+              color: Colors.grey,
+              child: ListView(
                 scrollDirection: Axis.vertical,
+                // ScrollController is required for Axis.horizontal
                 controller: verticalController,
-                color: Colors.grey,
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  // ScrollController is required for Axis.horizontal
-                  controller: verticalController,
-                  children: List.generate(
-                    5,
-                    (index) => ListTile(title: Text('Element $index')),
-                  ),
+                children: List.generate(
+                  5,
+                  (index) => ListTile(title: Text('Element $index')),
                 ),
               ),
             ),
+          ),
 
-            // Horizontally-scrolling child
-            Expanded(
-              child: ScrollShadow(
+          // Horizontally-scrolling child
+          Expanded(
+            child: ScrollShadow(
+              scrollDirection: Axis.horizontal,
+              controller: horizontalController,
+              color: Colors.grey,
+              child: ListView(
                 scrollDirection: Axis.horizontal,
+                // ScrollController is required for Axis.horizontal
                 controller: horizontalController,
-                color: Colors.grey,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  // ScrollController is required for Axis.horizontal
-                  controller: horizontalController,
-                  children: List.generate(
-                    5,
-                    (index) => Container(
-                      width: 100,
-                      child: RotatedBox(
-                        quarterTurns: 1,
-                        child: Text('Element $index'),
-                      ),
+                children: List.generate(
+                  5,
+                  (index) => SizedBox(
+                    width: 100,
+                    child: RotatedBox(
+                      quarterTurns: 1,
+                      child: Text('Element $index'),
                     ),
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
