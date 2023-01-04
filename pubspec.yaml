@@ -4,7 +4,7 @@ version: 1.1.0
 repository: https://github.com/rickypid/flutter_scroll_shadow
 issue_tracker: https://github.com/rickypid/flutter_scroll_shadow/issues
 homepage: https://github.com/rickypid/flutter_scroll_shadow
-documentation: https://github.com/rickypid/flutter_scroll_shadow#readme
+documentation: https://github.com/rickypid/flutter_scroll_shadow
 
 
 environment:
