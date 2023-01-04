@@ -1,5 +1,15 @@
 # Flutter Scroll Shadow
 
+## [1.1.0] - 2023-01-04
+#### [@rickypid](https://github.com/rickypid)
+- Improved documentations.
+
+#### [@coruscant187](https://github.com/coruscant187)
+- Added `ignoreInteraction` property to `ScrollShadow` so that the shadow will be ignored from interactions while you can still interact with the widget below. Defaults to `true`.
+
+#### [@allato](https://github.com/allato)
+- Fixed invisible shadow if it doesn't need scrolling.
+
 ## [1.0.2] - 2022-01-25
 #### [@rickypid](https://github.com/rickypid)
 - Improved documentations.

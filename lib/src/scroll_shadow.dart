@@ -1,6 +1,7 @@
 /// [ScrollShadow] class
 library flutter_scroll_shadow;
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 /// Wraps a scrollable child in `ScrollShadow`s.
@@ -11,8 +12,8 @@ class ScrollShadow extends StatefulWidget {
   ///
   /// [controller] is optional for vertically scrolling content,
   /// but required if [child] scrolls horizontally.
-  ScrollShadow({
-    Key? key,
+  const ScrollShadow({
+    super.key,
     this.size = 15,
     this.color = Colors.grey,
     this.controller,
@@ -68,7 +69,7 @@ class ScrollShadow extends StatefulWidget {
   final bool ignoreInteraction;
 
   @override
-  _ScrollShadowState createState() => _ScrollShadowState();
+  State<ScrollShadow> createState() => _ScrollShadowState();
 }
 
 class _ScrollShadowState extends State<ScrollShadow> {
@@ -85,8 +86,6 @@ class _ScrollShadowState extends State<ScrollShadow> {
   }
 
   void _listener() {
-    /*if (_controller.position.extentInside != 0)
-      print("m:${_controller.position.extentInside}");*/
     _reachedStart = (_controller.position.extentBefore == 0 &&
         _controller.position.hasViewportDimension);
     _reachedEnd = (_controller.position.extentAfter == 0 &&
@@ -95,10 +94,12 @@ class _ScrollShadowState extends State<ScrollShadow> {
   }
 
   void _update() {
-    if (_reachedStart != _reachedStartSnap)
+    if (_reachedStart != _reachedStartSnap) {
       setState(() => _reachedStartSnap = _reachedStart);
-    if (_reachedEnd != _reachedEndSnap)
+    }
+    if (_reachedEnd != _reachedEndSnap) {
       setState(() => _reachedEndSnap = _reachedEnd);
+    }
   }
 
   @override
@@ -114,92 +115,92 @@ class _ScrollShadowState extends State<ScrollShadow> {
     final Widget shadow = IgnorePointer(
       ignoring: widget.ignoreInteraction,
       child: (widget.scrollDirection == Axis.horizontal)
-        ? Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              AnimatedOpacity(
-                opacity: _reachedStartSnap ? 0 : 1,
-                duration: widget.duration,
-                curve: widget.curve,
-                child: Container(
-                  width: widget.size,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.centerRight,
-                      end: Alignment.centerLeft,
-                      stops: [0.0, 1.0],
-                      colors: [
-                        widget.color.withOpacity(0.0),
-                        widget.color,
-                      ],
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AnimatedOpacity(
+                  opacity: _reachedStartSnap ? 0 : 1,
+                  duration: widget.duration,
+                  curve: widget.curve,
+                  child: Container(
+                    width: widget.size,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerRight,
+                        end: Alignment.centerLeft,
+                        stops: const [0.0, 1.0],
+                        colors: [
+                          widget.color.withOpacity(0.0),
+                          widget.color,
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              AnimatedOpacity(
-                opacity: _reachedEndSnap ? 0 : 1,
-                duration: widget.duration,
-                curve: widget.curve,
-                child: Container(
-                  width: widget.size,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.centerRight,
-                      end: Alignment.centerLeft,
-                      stops: [0.0, 1.0],
-                      colors: [
-                        widget.color,
-                        widget.color.withOpacity(0.0),
-                      ],
+                AnimatedOpacity(
+                  opacity: _reachedEndSnap ? 0 : 1,
+                  duration: widget.duration,
+                  curve: widget.curve,
+                  child: Container(
+                    width: widget.size,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerRight,
+                        end: Alignment.centerLeft,
+                        stops: const [0.0, 1.0],
+                        colors: [
+                          widget.color,
+                          widget.color.withOpacity(0.0),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          )
-        : Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              AnimatedOpacity(
-                opacity: _reachedStartSnap ? 0 : 1,
-                duration: widget.duration,
-                curve: widget.curve,
-                child: Container(
-                  height: widget.size,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      stops: [0.0, 1.0],
-                      colors: [
-                        widget.color.withOpacity(0.0),
-                        widget.color,
-                      ],
+              ],
+            )
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AnimatedOpacity(
+                  opacity: _reachedStartSnap ? 0 : 1,
+                  duration: widget.duration,
+                  curve: widget.curve,
+                  child: Container(
+                    height: widget.size,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        stops: const [0.0, 1.0],
+                        colors: [
+                          widget.color.withOpacity(0.0),
+                          widget.color,
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              AnimatedOpacity(
-                opacity: _reachedEndSnap ? 0 : 1,
-                duration: widget.duration,
-                curve: widget.curve,
-                child: Container(
-                  height: widget.size,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      stops: [0.0, 1.0],
-                      colors: [
-                        widget.color,
-                        widget.color.withOpacity(0.0),
-                      ],
+                AnimatedOpacity(
+                  opacity: _reachedEndSnap ? 0 : 1,
+                  duration: widget.duration,
+                  curve: widget.curve,
+                  child: Container(
+                    height: widget.size,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        stops: const [0.0, 1.0],
+                        colors: [
+                          widget.color,
+                          widget.color.withOpacity(0.0),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
     );
 
     return Stack(
