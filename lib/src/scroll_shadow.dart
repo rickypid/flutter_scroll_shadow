@@ -117,8 +117,7 @@ class _ScrollShadowState extends State<ScrollShadow> {
     if (widget.controller != null) {
       _controller = widget.controller!..addListener(_listener);
     } else if (_controller != PrimaryScrollController.of(context)) {
-      _controller = PrimaryScrollController.of(context)!
-        ..addListener(_listener);
+      _controller = PrimaryScrollController.of(context)..addListener(_listener);
     }
     _update();
 

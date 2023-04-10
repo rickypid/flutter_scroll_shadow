@@ -1,5 +1,10 @@
 # Flutter Scroll Shadow
 
+## [1.2.0] - 2023-04-10
+#### [@rickypid](https://github.com/rickypid)
+
+* Update SDK version.
+
 ## [1.1.0] - 2023-01-04
 #### [@rickypid](https://github.com/rickypid)
 - Improved documentations.
