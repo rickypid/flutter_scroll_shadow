@@ -1,6 +1,6 @@
 name: flutter_scroll_shadow
 description: ScrollShadow adds shadows to a scrollable child. Supports ScrollController and vertical or horizontal orientation.
-version: 1.2.0
+version: 1.2.1
 repository: https://github.com/rickypid/flutter_scroll_shadow
 issue_tracker: https://github.com/rickypid/flutter_scroll_shadow/issues
 homepage: https://github.com/rickypid/flutter_scroll_shadow
@@ -8,8 +8,7 @@ documentation: https://github.com/rickypid/flutter_scroll_shadow#readme
 
 
 environment:
-  sdk: '>=2.19.6 <3.0.0'
-  flutter: ">=1.17.0"
+  sdk: '>=2.19.6 <4.0.0'
 
 dependencies:
   flutter:
@@ -18,7 +17,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
+  flutter_lints: ^2.0.2
   import_sorter: ^4.6.0
 
 flutter:

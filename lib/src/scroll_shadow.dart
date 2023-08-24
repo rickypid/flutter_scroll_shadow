@@ -113,14 +113,18 @@ class _ScrollShadowState extends State<ScrollShadow> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     if (widget.controller != null) {
       _controller = widget.controller!..addListener(_listener);
     } else if (_controller != PrimaryScrollController.of(context)) {
       _controller = PrimaryScrollController.of(context)..addListener(_listener);
     }
     _update();
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     final Widget shadow = IgnorePointer(
       ignoring: widget.ignoreInteraction,
       child: (widget.scrollDirection == Axis.horizontal)
