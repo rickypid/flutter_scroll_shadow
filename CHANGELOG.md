@@ -1,5 +1,8 @@
 # Flutter Scroll Shadow
 
+## [1.2.1] - 2023-08-24
+#### [@RichiB20](https://github.com/RichiB20)
+
 ## [1.2.0] - 2023-04-10
 #### [@rickypid](https://github.com/rickypid)
 
