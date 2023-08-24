@@ -2,6 +2,7 @@
 
 ## [1.2.1] - 2023-08-24
 #### [@RichiB20](https://github.com/RichiB20)
+- Fix controller init - (#6)
 
 ## [1.2.0] - 2023-04-10
 #### [@rickypid](https://github.com/rickypid)
