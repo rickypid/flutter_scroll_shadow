@@ -27,9 +27,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  ScrollController horizontalController = ScrollController();
-  ScrollController verticalController = ScrollController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,15 +40,11 @@ class _MyHomePageState extends State<MyHomePage> {
           // Vertically-scrolling child
           Expanded(
             child: ScrollShadow(
-              scrollDirection: Axis.vertical,
-              controller: verticalController,
               color: Colors.grey,
               child: ListView(
                 scrollDirection: Axis.vertical,
-                // ScrollController is required for Axis.horizontal
-                controller: verticalController,
                 children: List.generate(
-                  5,
+                  15,
                   (index) => ListTile(title: Text('Element $index')),
                 ),
               ),
@@ -61,13 +54,9 @@ class _MyHomePageState extends State<MyHomePage> {
           // Horizontally-scrolling child
           Expanded(
             child: ScrollShadow(
-              scrollDirection: Axis.horizontal,
-              controller: horizontalController,
               color: Colors.grey,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                // ScrollController is required for Axis.horizontal
-                controller: horizontalController,
                 children: List.generate(
                   5,
                   (index) => SizedBox(

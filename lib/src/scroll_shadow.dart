@@ -1,27 +1,21 @@
 /// [ScrollShadow] class
 library flutter_scroll_shadow;
 
-// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+
 
 /// Wraps a scrollable child in `ScrollShadow`s.
-class ScrollShadow extends StatefulWidget {
+class ScrollShadow extends StatefulWidget
+{
   /// Wraps a scrollable child in `ScrollShadow`s.
-  ///
-  /// [scrollDirection] is the direction of scroll, corresponding to the child.
-  ///
-  /// [controller] is optional for vertically scrolling content,
-  /// but required if [child] scrolls horizontally.
   const ScrollShadow({
     super.key,
-    this.size = 15,
-    this.color = Colors.grey,
-    this.controller,
-    this.scrollDirection = Axis.vertical,
+    this.size = 6.0,
+    this.color = Colors.black38,
     required this.child,
-    this.duration = const Duration(milliseconds: 300),
-    this.curve = Curves.easeInOutQuint,
+    this.duration = const Duration(milliseconds: 250),
+    this.fadeInCurve = Curves.easeIn,
+    this.fadeOutCurve = Curves.easeOut,
     this.ignoreInteraction = true,
   });
 
@@ -35,20 +29,7 @@ class ScrollShadow extends StatefulWidget {
   /// Default: `15.0`
   final double size;
 
-  /// [scrollDirection] is the direction of scroll, corresponding to the child.
-  ///
-  /// Default: [Axis.vertical]
-  final Axis scrollDirection;
-
-  ///Optional for vertically scrolling content, but required
-  /// if [child] scrolls horizontally.
-  ///
-  /// Default: `null`
-  final ScrollController? controller;
-
   /// The scrollable [child] contained by the `ScrollShadow`.
-  ///
-  /// Match this `ScrollShadow`'s [scrollDirection] to this `child`'s `scrollDirection`.
   final Widget child;
 
   /// The duration for the animation of shadow visibility changes.
@@ -56,15 +37,21 @@ class ScrollShadow extends StatefulWidget {
   /// Default: `Duration(milliseconds: 300)`
   final Duration duration;
 
-  /// The animation [Curve] to use for shadow visibility changes.
+  /// The animation [Curve] to use for shadow appearance.
   ///
   /// Default: [Curves.easeIn]
-  final Curve curve;
+  final Curve fadeInCurve;
 
-  /// Determines if [ScrollShadow] is wrapped inside a [IgnorePointer] widget,
-  /// so that all touch events with the shadow will be ignored.
-  /// Setting this `true` means that the shadow will be ignored from interactions,
-  /// so you can still interact with the widget below
+  /// The animation [Curve] to use for shadow disappearance.
+  ///
+  /// Default: [Curves.easeOut]
+  final Curve fadeOutCurve;
+
+  /// Determines if shadow is wrapped inside a [IgnorePointer] widget, so that
+  /// all touch events with the shadow will be ignored.
+  ///
+  /// Setting this to `true` means that the shadow will be ignored from
+  /// interactions, so you can still interact with the widget below.
   ///
   /// Default: `true`
   final bool ignoreInteraction;
@@ -73,156 +60,149 @@ class ScrollShadow extends StatefulWidget {
   State<ScrollShadow> createState() => _ScrollShadowState();
 }
 
-class _ScrollShadowState extends State<ScrollShadow> {
-  ScrollController _controller = ScrollController();
-  bool _reachedStart = true;
-  bool _reachedStartSnap = true;
-  bool _reachedEnd = false;
-  bool _reachedEndSnap = false;
 
-  @override
-  void dispose() {
-    _controller.removeListener(_listener);
-    super.dispose();
+class _ScrollShadowState extends State<ScrollShadow>
+{
+  bool get reachedStart => _reachedStart;
+
+  set reachedStart(final bool value)
+  {
+    if (_reachedStart == value) return;
+    setState(() => _reachedStart = value);
   }
 
-  bool get _shadowVisible =>
-      _controller.positions.isNotEmpty &&
-      (_controller.position.extentBefore > 0 ||
-          _controller.position.extentAfter > 0);
+  bool get reachedEnd => _reachedEnd;
 
-  void _listener() {
-    _reachedStart = _controller.positions.isNotEmpty &&
-        _controller.position.extentBefore == 0;
-    _reachedEnd = _controller.positions.isNotEmpty &&
-        _controller.position.extentAfter == 0;
-    _update();
-  }
-
-  void _update() {
-    if (_reachedStart != _reachedStartSnap) {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        setState(() => _reachedStartSnap = _reachedStart);
-      });
-    }
-    if (_reachedEnd != _reachedEndSnap) {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        setState(() => _reachedEndSnap = _reachedEnd);
-      });
-    }
+  set reachedEnd(final bool value)
+  {
+    if (_reachedEnd == value) return;
+    setState(() => _reachedEnd = value);
   }
 
   @override
-  void initState() {
-    if (widget.controller != null) {
-      _controller = widget.controller!..addListener(_listener);
-    } else if (_controller != PrimaryScrollController.of(context)) {
-      _controller = PrimaryScrollController.of(context)..addListener(_listener);
-    }
-    _update();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final Widget shadow = IgnorePointer(
-      ignoring: widget.ignoreInteraction,
-      child: (widget.scrollDirection == Axis.horizontal)
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AnimatedOpacity(
-                  opacity: _reachedStartSnap || !_shadowVisible ? 0 : 1,
-                  duration: widget.duration,
-                  curve: widget.curve,
-                  child: Container(
-                    width: widget.size,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.centerRight,
-                        end: Alignment.centerLeft,
-                        stops: const [0.0, 1.0],
-                        colors: [
-                          widget.color.withOpacity(0.0),
-                          widget.color,
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                AnimatedOpacity(
-                  opacity: _reachedEndSnap || !_shadowVisible ? 0 : 1,
-                  duration: widget.duration,
-                  curve: widget.curve,
-                  child: Container(
-                    width: widget.size,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.centerRight,
-                        end: Alignment.centerLeft,
-                        stops: const [0.0, 1.0],
-                        colors: [
-                          widget.color,
-                          widget.color.withOpacity(0.0),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            )
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AnimatedOpacity(
-                  opacity: _reachedStartSnap || !_shadowVisible ? 0 : 1,
-                  duration: widget.duration,
-                  curve: widget.curve,
-                  child: Container(
-                    height: widget.size,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        stops: const [0.0, 1.0],
-                        colors: [
-                          widget.color.withOpacity(0.0),
-                          widget.color,
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                AnimatedOpacity(
-                  opacity: _reachedEndSnap || !_shadowVisible ? 0 : 1,
-                  duration: widget.duration,
-                  curve: widget.curve,
-                  child: Container(
-                    height: widget.size,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        stops: const [0.0, 1.0],
-                        colors: [
-                          widget.color,
-                          widget.color.withOpacity(0.0),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-    );
-
-    return LayoutBuilder(
-      builder: (context, constrains) {
-        _listener();
-        return Stack(
-          children: <Widget>[widget.child, shadow],
+  Widget build(final BuildContext context)
+  {
+    LinearGradient? startGradient, endGradient;
+    switch (_axis) {
+      case null:
+        break;
+      case Axis.horizontal:
+        startGradient = LinearGradient(
+          begin: Alignment.centerRight,
+          end: Alignment.centerLeft,
+          colors: [ widget.color.withOpacity(0.0), widget.color ],
         );
-      },
+        endGradient = LinearGradient(
+          begin: Alignment.centerRight,
+          end: Alignment.centerLeft,
+          colors: [ widget.color, widget.color.withOpacity(0.0) ],
+        );
+      case Axis.vertical:
+        startGradient = LinearGradient(
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+          colors: [ widget.color.withOpacity(0.0), widget.color ],
+        );
+        endGradient = LinearGradient(
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+          colors: [ widget.color, widget.color.withOpacity(0.0) ],
+        );
+    }
+    var startShadow = _getShadow(startGradient);
+    var endShadow = _getShadow(endGradient);
+    if (_animate) {
+      startShadow = _getAnimatedShadow(startShadow, reachedStart);
+      endShadow = _getAnimatedShadow(endShadow, reachedEnd);
+    }
+    if (widget.ignoreInteraction) {
+      startShadow = _getNoninteractive(startShadow);
+      endShadow = _getNoninteractive(endShadow);
+    }
+    startShadow = _getPositioned(startShadow, true);
+    endShadow = _getPositioned(endShadow, false);
+    return Stack(children: [
+      NotificationListener<ScrollMetricsNotification>(
+        onNotification: (notification) {
+          return _handleNewMetrics(notification.metrics);
+        },
+        child: NotificationListener<ScrollNotification>(
+          onNotification: (notification) {
+            return _handleNewMetrics(notification.metrics);
+          },
+          child: widget.child,
+        ),
+      ),
+      if (startShadow != null) startShadow,
+      if (endShadow != null) endShadow,
+    ]);
+  }
+
+  Widget? _getShadow(final LinearGradient? gradient)
+  {
+    return gradient == null ? null : Container(
+      width: widget.size,
+      height: widget.size,
+      decoration: BoxDecoration(gradient: gradient)
     );
   }
+
+  Widget? _getAnimatedShadow(final Widget? shadow, final bool reachedEdge)
+  {
+    return shadow == null ? null : AnimatedOpacity(
+      opacity: reachedEdge ? 0.0 : 1.0,
+      duration: widget.duration,
+      curve: reachedEdge ? widget.fadeOutCurve : widget.fadeInCurve,
+      child: shadow,
+    );
+  }
+
+  Widget? _getNoninteractive(final Widget? shadow)
+  {
+    return shadow == null ? null : IgnorePointer(
+      ignoring: true,
+      child: shadow,
+    );
+  }
+
+  Widget? _getPositioned(final Widget? shadow, final bool start)
+  {
+    if (shadow == null) return null;
+    switch (_axis) {
+      case null:
+        return null;
+      case Axis.horizontal:
+        return Positioned(
+          left: start ? 0.0 : null,
+          right: start ? null : 0.0,
+          top: 0.0,
+          bottom: 0.0,
+          child: shadow,
+        );
+      case Axis.vertical:
+        return Positioned(
+          top: start ? 0.0 : null,
+          bottom: start ? null : 0.0,
+          left: 0.0,
+          right: 0.0,
+          child: shadow,
+        );
+    }
+  }
+
+  bool _handleNewMetrics(final ScrollMetrics metrics)
+  {
+    if (_axis != metrics.axis) {
+      setState(() => _axis = metrics.axis);
+    }
+    reachedStart = metrics.pixels <= metrics.minScrollExtent;
+    reachedEnd = metrics.pixels >= metrics.maxScrollExtent;
+    _animate = true;
+    return false;
+  }
+
+  Axis? _axis;
+  bool _reachedStart = true;
+  bool _reachedEnd = true;
+  bool _animate = false;
 }
