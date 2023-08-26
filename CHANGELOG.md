@@ -1,5 +1,9 @@
 # Flutter Scroll Shadow
 
+## [1.2.2] - 2023-08-31
+#### [@darkstarx](https://github.com/darkstarx)
+- Get rid of the need for the scroll controller - (#8)
+
 ## [1.2.1] - 2023-08-24
 #### [@RichiB20](https://github.com/RichiB20)
 - Fix controller init - (#6)
