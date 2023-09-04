@@ -3,10 +3,8 @@ library flutter_scroll_shadow;
 
 import 'package:flutter/material.dart';
 
-
 /// Wraps a scrollable child in `ScrollShadow`s.
-class ScrollShadow extends StatefulWidget
-{
+class ScrollShadow extends StatefulWidget {
   /// Wraps a scrollable child in `ScrollShadow`s.
   const ScrollShadow({
     super.key,
@@ -60,28 +58,23 @@ class ScrollShadow extends StatefulWidget
   State<ScrollShadow> createState() => _ScrollShadowState();
 }
 
-
-class _ScrollShadowState extends State<ScrollShadow>
-{
+class _ScrollShadowState extends State<ScrollShadow> {
   bool get reachedStart => _reachedStart;
 
-  set reachedStart(final bool value)
-  {
+  set reachedStart(final bool value) {
     if (_reachedStart == value) return;
     setState(() => _reachedStart = value);
   }
 
   bool get reachedEnd => _reachedEnd;
 
-  set reachedEnd(final bool value)
-  {
+  set reachedEnd(final bool value) {
     if (_reachedEnd == value) return;
     setState(() => _reachedEnd = value);
   }
 
   @override
-  Widget build(final BuildContext context)
-  {
+  Widget build(final BuildContext context) {
     LinearGradient? startGradient, endGradient;
     switch (_axis) {
       case null:
@@ -90,23 +83,23 @@ class _ScrollShadowState extends State<ScrollShadow>
         startGradient = LinearGradient(
           begin: Alignment.centerRight,
           end: Alignment.centerLeft,
-          colors: [ widget.color.withOpacity(0.0), widget.color ],
+          colors: [widget.color.withOpacity(0.0), widget.color],
         );
         endGradient = LinearGradient(
           begin: Alignment.centerRight,
           end: Alignment.centerLeft,
-          colors: [ widget.color, widget.color.withOpacity(0.0) ],
+          colors: [widget.color, widget.color.withOpacity(0.0)],
         );
       case Axis.vertical:
         startGradient = LinearGradient(
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
-          colors: [ widget.color.withOpacity(0.0), widget.color ],
+          colors: [widget.color.withOpacity(0.0), widget.color],
         );
         endGradient = LinearGradient(
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
-          colors: [ widget.color, widget.color.withOpacity(0.0) ],
+          colors: [widget.color, widget.color.withOpacity(0.0)],
         );
     }
     var startShadow = _getShadow(startGradient);
@@ -138,35 +131,36 @@ class _ScrollShadowState extends State<ScrollShadow>
     ]);
   }
 
-  Widget? _getShadow(final LinearGradient? gradient)
-  {
-    return gradient == null ? null : Container(
-      width: widget.size,
-      height: widget.size,
-      decoration: BoxDecoration(gradient: gradient)
-    );
+  Widget? _getShadow(final LinearGradient? gradient) {
+    return gradient == null
+        ? null
+        : Container(
+            width: widget.size,
+            height: widget.size,
+            decoration: BoxDecoration(gradient: gradient));
   }
 
-  Widget? _getAnimatedShadow(final Widget? shadow, final bool reachedEdge)
-  {
-    return shadow == null ? null : AnimatedOpacity(
-      opacity: reachedEdge ? 0.0 : 1.0,
-      duration: widget.duration,
-      curve: reachedEdge ? widget.fadeOutCurve : widget.fadeInCurve,
-      child: shadow,
-    );
+  Widget? _getAnimatedShadow(final Widget? shadow, final bool reachedEdge) {
+    return shadow == null
+        ? null
+        : AnimatedOpacity(
+            opacity: reachedEdge ? 0.0 : 1.0,
+            duration: widget.duration,
+            curve: reachedEdge ? widget.fadeOutCurve : widget.fadeInCurve,
+            child: shadow,
+          );
   }
 
-  Widget? _getNoninteractive(final Widget? shadow)
-  {
-    return shadow == null ? null : IgnorePointer(
-      ignoring: true,
-      child: shadow,
-    );
+  Widget? _getNoninteractive(final Widget? shadow) {
+    return shadow == null
+        ? null
+        : IgnorePointer(
+            ignoring: true,
+            child: shadow,
+          );
   }
 
-  Widget? _getPositioned(final Widget? shadow, final bool start)
-  {
+  Widget? _getPositioned(final Widget? shadow, final bool start) {
     if (shadow == null) return null;
     switch (_axis) {
       case null:
@@ -190,8 +184,7 @@ class _ScrollShadowState extends State<ScrollShadow>
     }
   }
 
-  bool _handleNewMetrics(final ScrollMetrics metrics)
-  {
+  bool _handleNewMetrics(final ScrollMetrics metrics) {
     if (_axis != metrics.axis) {
       setState(() => _axis = metrics.axis);
     }
