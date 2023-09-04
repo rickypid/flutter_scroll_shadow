@@ -2,7 +2,7 @@
 # Scroll Shadow
 
 [![](https://img.shields.io/static/v1?label=flutter&message=flutter_scroll_shadow&color=red??style=for-the-badge&logo=GitHub)](https://github.com/rickypid/flutter_scroll_shadow)
-[![Pub Package](https://img.shields.io/pub/v/flutter_scroll_shadow.svg?style=flat-square)](https://pub.dartlang.org/packages/flutter_scroll_shadow) 
+[![Pub Package](https://img.shields.io/pub/v/flutter_scroll_shadow.svg?style=flat-square)](https://pub.dartlang.org/packages/flutter_scroll_shadow)
 [![Pub Points](https://img.shields.io/pub/points/flutter_scroll_shadow)](https://pub.dev/packages/flutter_scroll_shadow/score)
 [![Pub Likes](https://img.shields.io/pub/likes/flutter_scroll_shadow)](https://pub.dev/packages/flutter_scroll_shadow/score)
 
@@ -48,12 +48,13 @@ ScrollShadow(
 ```
 
 ### Properties
-* `scrollDirection`: Scroll direction corresponding to child; default: `Axis.vertical`
-* `controller`: Optional for vertically scrolling content, but required if the child is `Axis.horizontal`
 * `color`: for the shadows; default: `Colors.grey`
 * `size`: The width or height of shadows, depending on `Axis`; default: `15.0`
 * `child`: Scrollable child contained by the `ScrollShadow`
 * `duration`: Milliseconds, as an `int,` for animation of shadow visibility changes; default: `300`
+* `fadeInCurve`: The animation [Curve] to use for shadow appearance; default: `Curves.easeIn`
+* `fadeOutCurve`: The animation [Curve] to use for shadow disappearance; default: `Curves.easeOut`
+* `ignoreInteraction`: Determines if shadow is wrapped inside a [IgnorePointer] widget, so that all touch events with the shadow will be ignored; default: `true`
 
 &nbsp;
 

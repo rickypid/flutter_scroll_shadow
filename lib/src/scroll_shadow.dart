@@ -26,7 +26,7 @@ class ScrollShadow extends StatefulWidget
 
   /// [size] is a `double` that represents the size of shadows in logical pixels.
   ///
-  /// Default: `15.0`
+  /// Default: `6.0`
   final double size;
 
   /// The scrollable [child] contained by the `ScrollShadow`.
