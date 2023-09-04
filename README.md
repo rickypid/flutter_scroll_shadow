@@ -48,12 +48,13 @@ ScrollShadow(
 ```
 
 ### Properties
-* `scrollDirection`: Scroll direction corresponding to child; default: `Axis.vertical`
-* `controller`: Optional for vertically scrolling content, but required if the child is `Axis.horizontal`
 * `color`: for the shadows; default: `Colors.grey`
 * `size`: The width or height of shadows, depending on `Axis`; default: `15.0`
 * `child`: Scrollable child contained by the `ScrollShadow`
 * `duration`: Milliseconds, as an `int,` for animation of shadow visibility changes; default: `300`
+* `fadeInCurve`: The animation [Curve] to use for shadow appearance; default: `Curves.easeIn`
+* `fadeOutCurve`: The animation [Curve] to use for shadow disappearance; default: `Curves.easeOut`
+* `ignoreInteraction`: Determines if shadow is wrapped inside a [IgnorePointer] widget, so that all touch events with the shadow will be ignored; default: `true`
 
 &nbsp;
 
