@@ -191,7 +191,8 @@ class _ScrollShadowState extends State<ScrollShadow> {
     reachedStart = metrics.pixels <= metrics.minScrollExtent;
     reachedEnd = metrics.pixels >= metrics.maxScrollExtent;
     _animate = true;
-    return false;
+    // Consume the notification to prevent possible ScrollShadow ancestor to interpret them a second timme
+    return true;
   }
 
   Axis? _axis;
