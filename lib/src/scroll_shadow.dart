@@ -63,14 +63,18 @@ class _ScrollShadowState extends State<ScrollShadow> {
 
   set reachedStart(final bool value) {
     if (_reachedStart == value) return;
-    setState(() => _reachedStart = value);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() => _reachedStart = value);
+    });
   }
 
   bool get reachedEnd => _reachedEnd;
 
   set reachedEnd(final bool value) {
     if (_reachedEnd == value) return;
-    setState(() => _reachedEnd = value);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() => _reachedEnd = value);
+    });
   }
 
   @override
@@ -186,7 +190,9 @@ class _ScrollShadowState extends State<ScrollShadow> {
 
   bool _handleNewMetrics(final ScrollMetrics metrics) {
     if (_axis != metrics.axis) {
-      setState(() => _axis = metrics.axis);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() => _axis = metrics.axis);
+      });
     }
     reachedStart = metrics.pixels <= metrics.minScrollExtent;
     reachedEnd = metrics.pixels >= metrics.maxScrollExtent;
