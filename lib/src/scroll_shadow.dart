@@ -1,6 +1,8 @@
 /// [ScrollShadow] class
 library flutter_scroll_shadow;
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 /// Wraps a scrollable child in `ScrollShadow`s.
@@ -63,7 +65,7 @@ class _ScrollShadowState extends State<ScrollShadow> {
 
   set reachedStart(final bool value) {
     if (_reachedStart == value) return;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    scheduleMicrotask(() {
       setState(() => _reachedStart = value);
     });
   }
@@ -72,7 +74,7 @@ class _ScrollShadowState extends State<ScrollShadow> {
 
   set reachedEnd(final bool value) {
     if (_reachedEnd == value) return;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    scheduleMicrotask(() {
       setState(() => _reachedEnd = value);
     });
   }
@@ -190,7 +192,7 @@ class _ScrollShadowState extends State<ScrollShadow> {
 
   bool _handleNewMetrics(final ScrollMetrics metrics) {
     if (_axis != metrics.axis) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      scheduleMicrotask(() {
         setState(() => _axis = metrics.axis);
       });
     }
