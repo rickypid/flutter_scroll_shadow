@@ -18,5 +18,6 @@ dev_dependencies:
   flutter_lints: ^2.0.2
   flutter_test:
     sdk: flutter
+  collection: ^1.17.2
 
 flutter: null
