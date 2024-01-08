@@ -1,5 +1,9 @@
 # Flutter Scroll Shadow
 
+## [1.2.4] - 2024-01-08
+#### [@pixelshot91](https://github.com/pixelshot91)
+- Enable to nest mulitple ScrollShadow without the inner one interfering with the outer one
+
 ## [1.2.3] - 2023-09-04
 #### [@RichiB20](https://github.com/RichiB20)/[@rickypid](https://github.com/rickypid)
 - Format code, add GitHub Actions
