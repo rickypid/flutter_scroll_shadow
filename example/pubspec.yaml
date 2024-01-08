@@ -1,6 +1,6 @@
 name: flutter_scroll_shadow_example
 description: A demonstration of the ScrollShadow widget for a scrollable child.
-version: 1.2.3
+version: 1.2.4
 publish_to: 'none'
 
 environment:
