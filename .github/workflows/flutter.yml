@@ -1,26 +1,28 @@
-name: Flutter
+name: Flutter analyze
 
 on:
-  push:
-    branches: [ "master" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [main, dev]
 
 jobs:
-  build:
+  flutter-analyze:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
+      - uses: actions/checkout@v2
+
+      - name: Setup Flutter environment
+        uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
 
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Analyze formatting
+        run: dart format . --set-exit-if-changed
+
       - name: Analyze project source
-        run: dart analyze
+        run: dart analyze --no-pub
 
       - name: Install pana
         run: dart pub global activate pana

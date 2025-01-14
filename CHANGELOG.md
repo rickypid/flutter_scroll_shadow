@@ -1,5 +1,9 @@
 # Flutter Scroll Shadow
 
+## [1.2.5] - 2024-01-14
+#### [@rickypid](https://github.com/rickypid)
+- Fixed shadow display bug with Scroll reverse to true - (#16)
+
 ## [1.2.4] - 2024-01-08
 #### [@pixelshot91](https://github.com/pixelshot91)
 - Enable to nest mulitple ScrollShadow without the inner one interfering with the outer one

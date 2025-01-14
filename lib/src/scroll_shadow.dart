@@ -188,8 +188,14 @@ class _ScrollShadowState extends State<ScrollShadow> {
     if (_axis != metrics.axis) {
       setState(() => _axis = metrics.axis);
     }
-    reachedStart = metrics.pixels <= metrics.minScrollExtent;
-    reachedEnd = metrics.pixels >= metrics.maxScrollExtent;
+    final bool isReverse = metrics.axisDirection == AxisDirection.left ||
+        metrics.axisDirection == AxisDirection.up;
+    reachedStart = isReverse
+        ? metrics.pixels >= metrics.maxScrollExtent
+        : metrics.pixels <= metrics.minScrollExtent;
+    reachedEnd = isReverse
+        ? metrics.pixels <= metrics.minScrollExtent
+        : metrics.pixels >= metrics.maxScrollExtent;
     _animate = true;
     // Consume the notification to prevent possible ScrollShadow ancestor to interpret them a second timme
     return true;
