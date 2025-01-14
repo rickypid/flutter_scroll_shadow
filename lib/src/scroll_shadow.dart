@@ -1,6 +1,8 @@
 /// [ScrollShadow] class
 library;
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 /// Wraps a scrollable child in `ScrollShadow`s.
@@ -63,14 +65,18 @@ class _ScrollShadowState extends State<ScrollShadow> {
 
   set reachedStart(final bool value) {
     if (_reachedStart == value) return;
-    setState(() => _reachedStart = value);
+    scheduleMicrotask(() {
+      setState(() => _reachedStart = value);
+    });
   }
 
   bool get reachedEnd => _reachedEnd;
 
   set reachedEnd(final bool value) {
     if (_reachedEnd == value) return;
-    setState(() => _reachedEnd = value);
+    scheduleMicrotask(() {
+      setState(() => _reachedEnd = value);
+    });
   }
 
   @override
@@ -182,7 +188,9 @@ class _ScrollShadowState extends State<ScrollShadow> {
 
   bool _handleNewMetrics(final ScrollMetrics metrics) {
     if (_axis != metrics.axis) {
-      setState(() => _axis = metrics.axis);
+      scheduleMicrotask(() {
+        setState(() => _axis = metrics.axis);
+      });
     }
     final isReverse = metrics.axisDirection == AxisDirection.left ||
         metrics.axisDirection == AxisDirection.up;
