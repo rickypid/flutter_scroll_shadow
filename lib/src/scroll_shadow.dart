@@ -1,5 +1,5 @@
 /// [ScrollShadow] class
-library flutter_scroll_shadow;
+library;
 
 import 'package:flutter/material.dart';
 
@@ -83,23 +83,23 @@ class _ScrollShadowState extends State<ScrollShadow> {
         startGradient = LinearGradient(
           begin: Alignment.centerRight,
           end: Alignment.centerLeft,
-          colors: [widget.color.withOpacity(0.0), widget.color],
+          colors: [widget.color.withAlpha(0), widget.color],
         );
         endGradient = LinearGradient(
           begin: Alignment.centerRight,
           end: Alignment.centerLeft,
-          colors: [widget.color, widget.color.withOpacity(0.0)],
+          colors: [widget.color, widget.color.withAlpha(0)],
         );
       case Axis.vertical:
         startGradient = LinearGradient(
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
-          colors: [widget.color.withOpacity(0.0), widget.color],
+          colors: [widget.color.withAlpha(0), widget.color],
         );
         endGradient = LinearGradient(
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
-          colors: [widget.color, widget.color.withOpacity(0.0)],
+          colors: [widget.color, widget.color.withAlpha(0)],
         );
     }
     var startShadow = _getShadow(startGradient);
@@ -114,51 +114,47 @@ class _ScrollShadowState extends State<ScrollShadow> {
     }
     startShadow = _getPositioned(startShadow, true);
     endShadow = _getPositioned(endShadow, false);
-    return Stack(children: [
-      NotificationListener<ScrollMetricsNotification>(
-        onNotification: (notification) {
-          return _handleNewMetrics(notification.metrics);
-        },
-        child: NotificationListener<ScrollNotification>(
-          onNotification: (notification) {
-            return _handleNewMetrics(notification.metrics);
-          },
-          child: widget.child,
+    return Stack(
+      children: [
+        NotificationListener<ScrollMetricsNotification>(
+          onNotification: (notification) =>
+              _handleNewMetrics(notification.metrics),
+          child: NotificationListener<ScrollNotification>(
+            onNotification: (notification) =>
+                _handleNewMetrics(notification.metrics),
+            child: widget.child,
+          ),
         ),
-      ),
-      if (startShadow != null) startShadow,
-      if (endShadow != null) endShadow,
-    ]);
+        if (startShadow != null) startShadow,
+        if (endShadow != null) endShadow,
+      ],
+    );
   }
 
-  Widget? _getShadow(final LinearGradient? gradient) {
-    return gradient == null
-        ? null
-        : Container(
-            width: widget.size,
-            height: widget.size,
-            decoration: BoxDecoration(gradient: gradient));
-  }
+  Widget? _getShadow(final LinearGradient? gradient) => gradient == null
+      ? null
+      : Container(
+          width: widget.size,
+          height: widget.size,
+          decoration: BoxDecoration(gradient: gradient),
+        );
 
-  Widget? _getAnimatedShadow(final Widget? shadow, final bool reachedEdge) {
-    return shadow == null
-        ? null
-        : AnimatedOpacity(
-            opacity: reachedEdge ? 0.0 : 1.0,
-            duration: widget.duration,
-            curve: reachedEdge ? widget.fadeOutCurve : widget.fadeInCurve,
-            child: shadow,
-          );
-  }
+  Widget? _getAnimatedShadow(final Widget? shadow, final bool reachedEdge) =>
+      shadow == null
+          ? null
+          : AnimatedOpacity(
+              opacity: reachedEdge ? 0.0 : 1.0,
+              duration: widget.duration,
+              curve: reachedEdge ? widget.fadeOutCurve : widget.fadeInCurve,
+              child: shadow,
+            );
 
-  Widget? _getNoninteractive(final Widget? shadow) {
-    return shadow == null
-        ? null
-        : IgnorePointer(
-            ignoring: true,
-            child: shadow,
-          );
-  }
+  Widget? _getNoninteractive(final Widget? shadow) => shadow == null
+      ? null
+      : IgnorePointer(
+          ignoring: true,
+          child: shadow,
+        );
 
   Widget? _getPositioned(final Widget? shadow, final bool start) {
     if (shadow == null) return null;
@@ -188,7 +184,7 @@ class _ScrollShadowState extends State<ScrollShadow> {
     if (_axis != metrics.axis) {
       setState(() => _axis = metrics.axis);
     }
-    final bool isReverse = metrics.axisDirection == AxisDirection.left ||
+    final isReverse = metrics.axisDirection == AxisDirection.left ||
         metrics.axisDirection == AxisDirection.up;
     reachedStart = isReverse
         ? metrics.pixels >= metrics.maxScrollExtent

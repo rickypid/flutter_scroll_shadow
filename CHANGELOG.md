@@ -1,5 +1,9 @@
 # Flutter Scroll Shadow
 
+## [1.2.6] - 2024-01-14
+#### [@rickypid](https://github.com/rickypid)
+- Replaced `withOpacity` with `withAlpha`
+
 ## [1.2.5] - 2024-01-14
 #### [@rickypid](https://github.com/rickypid)
 - Fixed shadow display bug with Scroll reverse to true - (#16)
