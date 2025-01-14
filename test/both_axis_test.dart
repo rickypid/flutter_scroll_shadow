@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_scroll_shadow/flutter_scroll_shadow.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 const _verticalShadowSize = 40.0;
 const _verticalShadowColor = Colors.pink;
@@ -13,23 +13,24 @@ class _BothAxisShadow extends StatelessWidget {
   const _BothAxisShadow();
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context) => MaterialApp(
         home: Scaffold(
-      body: Center(
-        // Constraint the app size to be sure to have scroll shadows
-        child: SizedBox(
-          height: 300,
-          width: 300,
-          child: ScrollShadow(
-              size: _verticalShadowSize,
-              color: _verticalShadowColor,
-              child: ListView.builder(
-                  itemBuilder: (context, rowIndex) => _MyRow(rowIndex))),
+          body: Center(
+            // Constraint the app size to be sure to have scroll shadows
+            child: SizedBox(
+              height: 300,
+              width: 300,
+              child: ScrollShadow(
+                size: _verticalShadowSize,
+                color: _verticalShadowColor,
+                child: ListView.builder(
+                  itemBuilder: (context, rowIndex) => _MyRow(rowIndex),
+                ),
+              ),
+            ),
+          ),
         ),
-      ),
-    ));
-  }
+      );
 }
 
 class _MyRow extends StatelessWidget {
@@ -39,46 +40,45 @@ class _MyRow extends StatelessWidget {
   final controller = ScrollController();
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Text(
-              'Row $rowIndex',
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            ScrollShadow(
-              size: _horizontalShadowSize,
-              color: _horizontalShadowColor,
-              child: Scrollbar(
-                scrollbarOrientation: ScrollbarOrientation.bottom,
-                thumbVisibility: true,
-                trackVisibility: true,
-                controller: controller,
-                child: SingleChildScrollView(
+  Widget build(BuildContext context) => Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Text(
+                'Row $rowIndex',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              ScrollShadow(
+                size: _horizontalShadowSize,
+                color: _horizontalShadowColor,
+                child: Scrollbar(
+                  scrollbarOrientation: ScrollbarOrientation.bottom,
+                  thumbVisibility: true,
+                  trackVisibility: true,
                   controller: controller,
-                  scrollDirection: Axis.horizontal,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: List.generate(
+                  child: SingleChildScrollView(
+                    controller: controller,
+                    scrollDirection: Axis.horizontal,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: List.generate(
                           20,
                           (columnIndex) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('R${rowIndex}C$columnIndex'),
-                              )),
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('R${rowIndex}C$columnIndex'),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 enum _Direction {
@@ -105,11 +105,15 @@ AnimatedOpacity _findVerticalShadow(_Direction direction) {
     expect(gradient.begin, Alignment.bottomCenter);
     expect(gradient.end, Alignment.topCenter);
 
-    if (const ListEquality<Color>().equals(gradient.colors,
-        [_verticalShadowColor.withOpacity(0), _verticalShadowColor])) {
+    if (const ListEquality<Color>().equals(
+      gradient.colors,
+      [_verticalShadowColor.withAlpha(0), _verticalShadowColor],
+    )) {
       return direction == _Direction.start;
-    } else if (const ListEquality<Color>().equals(gradient.colors,
-        [_verticalShadowColor, _verticalShadowColor.withOpacity(0)])) {
+    } else if (const ListEquality<Color>().equals(
+      gradient.colors,
+      [_verticalShadowColor, _verticalShadowColor.withAlpha(0)],
+    )) {
       return direction == _Direction.end;
     } else {
       fail('The gradient colors should be one of the above');
