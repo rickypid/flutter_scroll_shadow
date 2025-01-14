@@ -24,7 +24,8 @@ class _BothAxisShadow extends StatelessWidget {
           child: ScrollShadow(
               size: _verticalShadowSize,
               color: _verticalShadowColor,
-              child: ListView.builder(itemBuilder: (context, rowIndex) => _MyRow(rowIndex))),
+              child: ListView.builder(
+                  itemBuilder: (context, rowIndex) => _MyRow(rowIndex))),
         ),
       ),
     ));
@@ -104,11 +105,11 @@ AnimatedOpacity _findVerticalShadow(_Direction direction) {
     expect(gradient.begin, Alignment.bottomCenter);
     expect(gradient.end, Alignment.topCenter);
 
-    if (const ListEquality<Color>()
-        .equals(gradient.colors, [_verticalShadowColor.withOpacity(0), _verticalShadowColor])) {
+    if (const ListEquality<Color>().equals(gradient.colors,
+        [_verticalShadowColor.withOpacity(0), _verticalShadowColor])) {
       return direction == _Direction.start;
-    } else if (const ListEquality<Color>()
-        .equals(gradient.colors, [_verticalShadowColor, _verticalShadowColor.withOpacity(0)])) {
+    } else if (const ListEquality<Color>().equals(gradient.colors,
+        [_verticalShadowColor, _verticalShadowColor.withOpacity(0)])) {
       return direction == _Direction.end;
     } else {
       fail('The gradient colors should be one of the above');
